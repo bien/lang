@@ -1,3 +1,4 @@
+import traceback
 
 tokens = ('NAME', 'NUMBER', 'SCONST',
           'PLUS', 'MINUS', 'TIMES', 'DIVIDE', "MOD",
@@ -113,7 +114,11 @@ def evalloop(input):
     import ply.yacc as yacc
     yacc.yacc()
     for line in input:
-        yield yacc.parse(line)
+        try:
+            yield yacc.parse(line)
+        except:
+            traceback.print_exc()
+            yield ''
 
 def readstdin():
     while True:
